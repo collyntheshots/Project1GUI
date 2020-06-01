@@ -25,6 +25,7 @@ public class Inventory
           return true;
         }
       }
+      br.close();
     }
     catch (Exception e)
     {

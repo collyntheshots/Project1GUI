@@ -94,32 +94,29 @@ public class Window implements ActionListener
     window.setVisible(true);
   }
 
-/*
-  private void setItemData()
-  {
-    //"22222"; "\"W Is For Wasted - Sue Grafton\", 9.95"
-    String [] item = {"22222", "11221122"};
-    itemData[0][0] = item[0];
-  }
-*/
-
   public void actionPerformed(ActionEvent e)
   {
     if (e.getSource() == procItem)
     {
-      // Line need fixing *********************************************************************************
-      if (inventory.isInInventory(bookIdField.getText()) && (Integer.parseInt(quantityField.getText()) > 0))
+      if (inventory.isInInventory(bookIdField.getText()) && !(quantityField.getText().equals("")))
       {
-        itemNum++;
-        procItem.setText("Process Item #" + itemNum);
         confirmItem.setEnabled(true);
         procItem.setEnabled(false);
+      }
+      else
+      {
+        JOptionPane.showMessageDialog(null, "Book ID " + bookIdField.getText() + " not in file or you did not enter a quantity");
       }
     }
     else if (e.getSource() == confirmItem)
     {
+      JOptionPane.showMessageDialog(null, "Item " + itemNum + " accepted");
+      itemNum++;
+      procItem.setText("Process Item #" + itemNum);
       confirmItem.setEnabled(false);
       procItem.setEnabled(true);
+      viewOrder.setEnabled(true);
+      finishOrder.setEnabled(true);
     }
     else if (e.getSource() == newOrder)
     {
@@ -137,6 +134,8 @@ public class Window implements ActionListener
       quantityTag.setText("           Quantity for item #" + itemNum);
       itemInfoTag.setText("                          Item #" + itemNum + " info");
       confirmItem.setEnabled(false);
+      viewOrder.setEnabled(false);
+      finishOrder.setEnabled(false);
       procItem.setEnabled(true);
     }
     else if (e.getSource() == exit)
